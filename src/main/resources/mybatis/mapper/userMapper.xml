@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.bubble.user.repository.UserRepository">
+    <insert id="save" parameterType="com.my.bubble.user.model.User">
+        INSERT INTO user
+        VALUES (#{id}, #{password}, 'ROLE_USER')
+    </insert>
+
+    <select id="findById" parameterType="String" resultType="com.my.bubble.user.model.User">
+        SELECT u.id
+             , u.password
+             , GROUP_CONCAT(a.auth) auth
+
+        FROM user u
+                 JOIN auth a
+                      ON u.id = a.id
+
+        WHERE u.id = #{id}
+    </select>
+</mapper>
