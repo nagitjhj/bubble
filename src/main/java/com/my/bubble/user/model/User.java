@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class User {
 //    private String role;
     private String auth;
 //    private List<Auth> authList;
+
+    private String email;
+    private Integer loginFailed;
+    private String lockYn;
+    private Timestamp lockDate;
 
     public User(String id, String password) {
         this.id = id;

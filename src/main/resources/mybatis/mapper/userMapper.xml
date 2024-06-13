@@ -11,13 +11,30 @@
 
     <select id="findById" parameterType="String" resultType="com.my.bubble.user.model.User">
         SELECT u.id
-             , u.password
-             , GROUP_CONCAT(a.auth) auth
-
+                , u.password
+                , GROUP_CONCAT(a.auth) auth
+                , u.email
+                , u.login_failed loginFailed
+                , u.lock_yn lockYn
+                , u.lock_date lockDate
         FROM user u
-                 JOIN auth a
-                      ON u.id = a.id
-
+        JOIN auth a
+            ON u.id = a.id
         WHERE u.id = #{id}
     </select>
+
+    <update id="updateLoginFailed" parameterType="String">
+        UPDATE user
+        SET login_failed = login_failed + 1,
+            lock_yn = CASE WHEN login_failed = 5 THEN 'Y' ELSE 'N' END,
+            lock_date = CASE WHEN login_failed = 5 THEN now() END
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateLoginFailedZero" parameterType="String">
+        UPDATE user
+        SET login_failed = 0
+        WHERE id = #{id}
+    </update>
+
 </mapper>
