@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -55,6 +56,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        // 1년동안 로그인 안 하면 휴면계정
+        LocalDateTime loginPlusOne = user.getLatestLoginDate().plusYears(1);
+        LocalDateTime now = LocalDateTime.now();
+
+        return loginPlusOne.isAfter(now);
     }
 }

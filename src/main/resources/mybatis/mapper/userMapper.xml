@@ -5,8 +5,8 @@
 
 <mapper namespace="com.my.bubble.user.repository.UserRepository">
     <insert id="save" parameterType="com.my.bubble.user.model.User">
-        INSERT INTO user
-        VALUES (#{id}, #{password}, 'ROLE_USER')
+        INSERT INTO user (id, password)
+        VALUES (#{id}, #{password})
     </insert>
 
     <select id="findById" parameterType="String" resultType="com.my.bubble.user.model.User">
@@ -17,6 +17,12 @@
                 , u.login_failed loginFailed
                 , u.lock_yn lockYn
                 , u.lock_date lockDate
+                , (SELECT login_date
+                   FROM login_log
+                   WHERE id = #{id}
+                   ORDER BY login_date DESC
+                   limit 1
+                   ) latestLoginDate
         FROM user u
         JOIN auth a
             ON u.id = a.id
@@ -36,5 +42,10 @@
         SET login_failed = 0
         WHERE id = #{id}
     </update>
+
+    <insert id="saveLoginLog" parameterType="String">
+        INSERT INTO login_log (id)
+        VALUES (#{id})
+    </insert>
 
 </mapper>

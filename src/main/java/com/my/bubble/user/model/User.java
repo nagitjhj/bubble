@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class User {
     private Integer loginFailed;
     private String lockYn;
     private Timestamp lockDate;
+
+    private LocalDateTime latestLoginDate;
 
     public User(String id, String password) {
         this.id = id;

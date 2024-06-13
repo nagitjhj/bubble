@@ -1,10 +1,9 @@
 package com.my.bubble.config.auth;
 
 import com.my.bubble.user.repository.UserRepository;
+import com.my.bubble.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +18,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
 //    @Transactional 이거 있으면 안됨 이유를 알아야... 미스테리...
@@ -29,13 +29,17 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
 
         if (!userDetails.isAccountNonLocked()) {
-            throw new BadCredentialsException("계정 lock.. so bad cheer up!!");
+            throw new LockedException("계정 lock.. so bad cheer up!! 이메일 인증 필요~.~");
         }
 
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
+            if (!userDetails.isEnabled()) {
+                throw new DisabledException("휴먼...휴면입니다...이메일 인증을 하세욥");
+            }
             if (userDetails.getLoginFailed() > 0) {
                 userRepository.updateLoginFailedZero(username);
             }
+            userService.saveLoginLog(username);
             return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
         } else {
             userRepository.updateLoginFailed(username);

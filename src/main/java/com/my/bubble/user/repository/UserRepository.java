@@ -12,4 +12,6 @@ public interface UserRepository {
 //    User findById(String id);
     void updateLoginFailed(String id);
     void updateLoginFailedZero(String id);
+
+    void saveLoginLog(String id);
 }

@@ -31,4 +31,9 @@ public class UserService {
         userRepository.updateLoginFailedZero(id);
     }
 
+    @Transactional
+    public void saveLoginLog(String id) {
+        userRepository.saveLoginLog(id);
+    }
+
 }

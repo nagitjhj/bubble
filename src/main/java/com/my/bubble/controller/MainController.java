@@ -47,7 +47,7 @@ public class MainController {
     public String loginPost(@Valid @ModelAttribute("login") RequestLogin login, BindingResult bindingResult, Model model, HttpServletRequest request) {
         AuthenticationException exception = (AuthenticationException) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 
-        if (exception instanceof BadCredentialsException) {
+        if (exception instanceof AuthenticationException) {
             bindingResult.reject("bad", exception.getMessage());
         }
 

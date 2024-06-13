@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository
                 .findById(username)
-                .orElseThrow(() -> new BadCredentialsException("잘못된 아이디"));
+                .orElseThrow(() -> new UsernameNotFoundException("잘못된 아이디"));
 
 //        User user = userRepository.findById(username);
 
