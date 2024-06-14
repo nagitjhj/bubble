@@ -13,5 +13,18 @@ spring:
     url: jdbc:mysql://localhost:3306/bubble
     baseline-on-migrate: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: a
+            client-secret: a
+            scope:
+              - email
+              - profile
+
+
+
 mybatis:
   mapper-locations: mybatis/mapper/**/*.xml

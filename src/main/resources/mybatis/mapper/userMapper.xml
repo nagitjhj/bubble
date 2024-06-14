@@ -9,6 +9,16 @@
         VALUES (#{id}, #{password})
     </insert>
 
+    <insert id="saveOAuth2" parameterType="com.my.bubble.user.model.User">
+        INSERT INTO user (id, password, provider, providerId)
+        VALUES (#{id}, #{password}, #{provider}, #{providerId})
+    </insert>
+
+    <insert id="saveAuth" parameterType="String">
+        INSERT INTO auth (id, auth)
+        VALUES (#{id}, 'ROLE_USER')
+    </insert>
+
     <select id="findById" parameterType="String" resultType="com.my.bubble.user.model.User">
         SELECT u.id
                 , u.password
@@ -17,6 +27,8 @@
                 , u.login_failed loginFailed
                 , u.lock_yn lockYn
                 , u.lock_date lockDate
+                , u.provider
+                , u.providerId
                 , (SELECT login_date
                    FROM login_log
                    WHERE id = #{id}

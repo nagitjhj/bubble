@@ -1,4 +1,4 @@
-package com.my.bubble.config.auth;
+package com.my.bubble.login.auth;
 
 import com.my.bubble.user.repository.UserRepository;
 import com.my.bubble.user.service.UserService;
@@ -6,11 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor

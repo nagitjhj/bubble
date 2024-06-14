@@ -1,6 +1,5 @@
-package com.my.bubble.config.handler;
+package com.my.bubble.login.handler;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

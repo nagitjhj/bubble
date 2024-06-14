@@ -19,6 +19,7 @@ public class UserService {
     public void save(RequestUserJoin requestUserJoin) {
         User user = new User(requestUserJoin.getId(), encoder.encode(requestUserJoin.getPassword()));
         userRepository.save(user);
+        userRepository.saveAuth(user.getId());
     }
 
     @Transactional

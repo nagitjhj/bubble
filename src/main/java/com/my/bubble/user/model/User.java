@@ -23,11 +23,21 @@ public class User {
     private String lockYn;
     private Timestamp lockDate;
 
+    private String provider;
+    private String providerId;
+
     private LocalDateTime latestLoginDate;
 
     public User(String id, String password) {
         this.id = id;
         this.password = password;
+    }
+
+    public User(String id, String password, String provider, String providerId) {
+        this.id = id;
+        this.password = password;
+        this.provider = provider;
+        this.providerId = providerId;
     }
 
     public List<String> getAuthList() {

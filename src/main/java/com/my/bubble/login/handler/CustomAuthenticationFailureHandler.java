@@ -1,15 +1,12 @@
-package com.my.bubble.config.handler;
+package com.my.bubble.login.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 

@@ -8,6 +8,9 @@ import java.util.Optional;
 @Mapper
 public interface UserRepository {
     void save(User user);
+    void saveOAuth2(User user);
+    void saveAuth(String id);
+
     Optional<User> findById(String id);
 //    User findById(String id);
     void updateLoginFailed(String id);

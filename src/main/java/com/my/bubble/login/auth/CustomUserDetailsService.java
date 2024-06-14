@@ -1,9 +1,8 @@
-package com.my.bubble.config.auth;
+package com.my.bubble.login.auth;
 
 import com.my.bubble.user.model.User;
 import com.my.bubble.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
