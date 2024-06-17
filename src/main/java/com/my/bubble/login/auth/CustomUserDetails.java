@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 public class CustomUserDetails implements UserDetails, OAuth2User {
     private User user;
-    private Map<String, Object> attribute; //아직 뭔지 모르고있음
+    private Map<String, Object> attribute; //아직 뭔지 모르고있음 - 알고있음
 
     public CustomUserDetails(User user) {
         this.user = user;

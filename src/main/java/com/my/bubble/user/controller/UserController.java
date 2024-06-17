@@ -22,8 +22,13 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user/main")
+    @GetMapping("/user")
     public String main() {
         return "/user/main";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "/admin/main";
     }
 }

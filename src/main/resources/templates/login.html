@@ -16,6 +16,8 @@
             <li>password : <input type="text" th:field="*{password}"/> </li>
             <p th:errors="*{password}"></p>
         </ul>
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">로그인 유지</label><br/>
         <button type="submit">로그인</button>
     </form>
 
