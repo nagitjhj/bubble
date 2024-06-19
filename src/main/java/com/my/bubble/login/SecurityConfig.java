@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -29,14 +30,14 @@ import static org.springframework.security.web.authentication.rememberme.TokenBa
 public class SecurityConfig {
     private final CustomAuthenticationSuccessHandler successHandler;
     private final CustomAuthenticationFailureHandler failureHandler;
-    private final CustomOAuth2UserService oauth2UserService;
+    private final DefaultOAuth2UserService oauth2UserService;
     private final ClientRegistrationRepository clientRegistrationRepository; //디폴트가 InMemory....
 //    private final RememberMeServices rememberMeServices;
 
     private final CustomUserDetailsService customUserDetailsService;
     private final DataSource dataSource;
-    private final PersistentTokenRepository tokenRepository;
-    private final PersistentTokenBasedRememberMeServices rememberMeServices;
+//    private final PersistentTokenRepository tokenRepository;
+//    private final PersistentTokenBasedRememberMeServices rememberMeServices;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/cel/**").hasAnyRole("ADMIN", "CEL")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         http
@@ -73,13 +74,13 @@ public class SecurityConfig {
                         .failureHandler(failureHandler)
                 );
 
-        http
-                .rememberMe(re->re
-                        .rememberMeParameter("remember")
-                        .tokenValiditySeconds(100)
-                        .tokenRepository(tokenRepository)
-                        .rememberMeServices(rememberMeServices)
-                );
+//        http
+//                .rememberMe(re->re
+//                        .rememberMeParameter("remember")
+//                        .tokenValiditySeconds(100)
+//                        .tokenRepository(tokenRepository)
+//                        .rememberMeServices(rememberMeServices)
+//                );
 
         http
                 .logout(l->l

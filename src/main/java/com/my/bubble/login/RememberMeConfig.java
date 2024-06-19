@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class RememberMeConfig {
     private final CustomUserDetailsService customUserDetailsService;

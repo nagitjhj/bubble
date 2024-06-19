@@ -26,8 +26,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final PersistentTokenRepository tokenRepository;
-    private final PersistentTokenBasedRememberMeServices rememberMeServices;
+//    private final PersistentTokenRepository tokenRepository;
+//    private final PersistentTokenBasedRememberMeServices rememberMeServices;
 
     //소셜 로그인 후처리
     @Override
@@ -53,10 +53,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //        User userEntity = userRepository.findById(username).orElse(null);
 
         //set remember me cookie
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-        rememberMeServices.loginSuccess(request, response, authentication);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+//        rememberMeServices.loginSuccess(request, response, authentication);
 
         return new CustomUserDetails(user, oAuth2User.getAttributes());
     }

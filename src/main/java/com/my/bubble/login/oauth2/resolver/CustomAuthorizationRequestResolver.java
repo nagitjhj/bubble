@@ -46,8 +46,10 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
         Map<String, Object> additionalParameters = new LinkedHashMap<>(authorizationRequest.getAdditionalParameters());
         if (Boolean.TRUE.equals(hasLoggedIn)) { //Boolean null check
             additionalParameters.put("prompt", "none");
+            additionalParameters.put("remember", "true");
         } else {
             additionalParameters.put("prompt", "select_account");
+            additionalParameters.put("remember", "true");
         }
 
         return OAuth2AuthorizationRequest.from(authorizationRequest)

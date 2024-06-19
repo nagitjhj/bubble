@@ -24,6 +24,11 @@ spring:
               - email
               - profile
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: 1234
 
 
 mybatis:
@@ -32,4 +37,12 @@ mybatis:
 
 logging:
   level:
-    root: debug
+    root: info
+
+rabbitmq:
+  queue:
+    name: sample-queue
+  exchange:
+    name: sample-exchange
+  routing:
+    key: key
