@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pub</title>
+</head>
+<body>
+
+<h1>PICK ME PICK ME</h1>
+<a href="/user/sub/list">나의 구독-리스트로 슝 갑니다</a><br/>
+
+<ul th:each="pub : ${pubList}">
+    <li>
+        <a th:id="${pub.pubId}" href="#" th:onclick="subscribe([[${pub}]])">
+            [[${pub.name}]] 님을 구독하겠어요... 한달에 4,500원 soooo 저렴
+        </a>
+    </li>
+</ul>
+
+<script>
+    function subscribe(pub) {
+        console.log(pub);
+
+        let check = confirm(`${pub.name} 님과 정말....함께 하실래요....?`);
+        if (check) {
+            fetch('/sub',{
+                method: 'POST',
+                body: JSON.stringify({pubId : pub.pubId}),
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })
+                .then((response) => {
+                    console.log(response)
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('앗! 구독이 실패..ㅜ');
+                })
+                .then((data) => {
+                    console.log(data)
+                    alert(`축하드립니다. 이제 당신은 ${pub.name} 와 항상 함께 입ㄴ디ㅏ.`)
+                    if (data.message === 'ok') {
+                        let a = document.getElementById(pub.pubId);
+                        a.onclick = null;
+                        a.removeAttribute('href');
+                        a.innerText += ' (이미 구독 중)';
+                    }
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        }
+    }
+</script>
+</body>
+</html>

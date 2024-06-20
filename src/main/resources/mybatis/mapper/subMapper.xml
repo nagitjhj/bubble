@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.bubble.sub.repository.SubRepository">
+
+    <select id="findAll" resultType="com.my.bubble.sub.model.ResponsePubList">
+        SELECT id pubId
+                , name
+        FROM user
+        WHERE id in (SELECT id FROM auth WHERE auth = 'ROLE_CEL')
+    </select>
+
+    <insert id="saveSubFirst" parameterType="com.my.bubble.sub.model.Subscribe">
+        INSERT INTO subscribe (user_id, pub_id, start_date, end_date, valid_yn, times)
+        VALUES (#{userId}, #{pubId}, now(), DATE_ADD(now(), INTERVAL 1 MONTH), 'Y', 1)
+    </insert>
+
+</mapper>
