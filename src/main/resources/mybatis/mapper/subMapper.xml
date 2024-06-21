@@ -5,7 +5,7 @@
 
 <mapper namespace="com.my.bubble.sub.repository.SubRepository">
 
-    <select id="findAll" resultType="com.my.bubble.sub.model.ResponsePubList" parameterType="String">
+    <select id="findPubAll" resultType="com.my.bubble.sub.model.ResponsePubList" parameterType="String">
         SELECT u.id AS pubId
              , u.name
              , CASE
@@ -17,7 +17,7 @@
                      SELECT s2.pub_id
                      FROM subscribe s2
                      WHERE s2.user_id = #{id}
-                       AND s2.valid_yn = 'Y'
+                       AND s2.end_date > now()
                  ) s
              ON u.id = s.pub_id
         WHERE u.id IN (SELECT a.id FROM auth a WHERE a.auth = 'ROLE_CEL')
@@ -27,5 +27,21 @@
         INSERT INTO subscribe (user_id, pub_id, start_date, end_date, valid_yn, times)
         VALUES (#{userId}, #{pubId}, now(), DATE_ADD(now(), INTERVAL 1 MONTH), 'Y', 1)
     </insert>
+
+    <select id="findSubAll" parameterType="String" resultType="com.my.bubble.sub.model.ResponseSubList">
+        SELECT s.pub_id pubId
+                , u.name name
+                , CASE
+                    WHEN s.end_date > now() THEN 'Y'
+                    ELSE 'N'
+                END as validYn
+                , s.start_date startDate
+                , s.end_date endDate
+        FROM subscribe s
+        JOIN user u
+            ON u.id = s.pub_id
+        WHERE s.user_id = #{id}
+        ORDER BY end_date DESC
+    </select>
 
 </mapper>

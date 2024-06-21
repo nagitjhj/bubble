@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sub-list</title>
+</head>
+<body>
+<h1>당신의 구독 리스트</h1>
+<div th:each="sub : ${subList}">
+    <div th:if="${sub.validYn == 'Y'}" th:onclick="enterSub([[${sub.pubId}]])" style="border: 1px solid black">
+        <p>[[${{sub.startDate}}]] 부터 함께하고 있어요</p>
+        <span th:text="${sub.name}"></span> 님이 기다리고 있어요 <br>
+        <p>구독 종료일 : [[${{sub.endDate}}]]</p>
+    </div>
+    <div th:if="${sub.validYn == 'N'}" th:onclick="goPubList()">
+        <span th:text="${sub.name}"></span> 님 다시 구독하기 <br>
+        <p>구독 종료일 : [[${{sub.endDate}}]]</p>
+    </div>
+</div>
+
+<script>
+    function enterSub(pubId) {
+        console.log(pubId)
+    }
+
+    function goPubList() {
+        location.href='/pub/list';
+    }
+</script>
+</body>
+</html>

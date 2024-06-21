@@ -7,13 +7,13 @@
 <body>
 
 <h1>PICK ME PICK ME</h1>
-<a href="/user/sub/list">나의 구독-리스트로 슝 갑니다</a><br/>
+<a href="/sub/list">나의 구독-리스트로 슝 갑니다</a><br/>
 
 <ul th:each="pub : ${pubList}">
     <li th:id="|li-${pub.pubId}|">
         [[${pub.name}]] 님을 구독하겠어요... 한달에 4,500원 soooo 저렴
-        <span th:if="${pub.subYn == 'Y'}" th:id="|span-${pub.pubId}|" style="display: inline"> (이미 구독 중)</span>
-        <button th:if="${pub.subYn == 'N'}" th:id="|btn-${pub.pubId}|" th:onclick="subscribe([[${pub}]])" style="display: inline">구독하기</button>
+        <span th:if="${pub.subYn == 'Y'}" th:id="|span-${pub.pubId}|"> (이미 구독 중)</span>
+        <button th:if="${pub.subYn == 'N'}" th:id="|btn-${pub.pubId}|" th:onclick="subscribe([[${pub}]])">구독하기</button>
     </li>
 </ul>
 

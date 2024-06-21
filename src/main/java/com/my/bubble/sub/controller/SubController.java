@@ -3,6 +3,7 @@ package com.my.bubble.sub.controller;
 import com.my.bubble.login.auth.CustomUserDetails;
 import com.my.bubble.sub.model.RequestSub;
 import com.my.bubble.sub.model.ResponsePubList;
+import com.my.bubble.sub.model.ResponseSubList;
 import com.my.bubble.sub.service.SubService;
 import com.my.bubble.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,12 @@ public class SubController {
             response.put("message", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @GetMapping("/sub/list")
+    public String subList(Model model, Principal principal) {
+        List<ResponseSubList> subList = subService.subList(principal.getName());
+        model.addAttribute("subList", subList);
+        return "sub/sub-list";
     }
 }
