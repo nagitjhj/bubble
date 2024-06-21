@@ -10,11 +10,10 @@
 <a href="/user/sub/list">나의 구독-리스트로 슝 갑니다</a><br/>
 
 <ul th:each="pub : ${pubList}">
-    <li>
-        <a th:id="${pub.pubId}" th:attr="onclick=${pub.subYn == 'N'} ? 'subscribe('+${pub}+')' : null">
-            [[${pub.name}]] 님을 구독하겠어요... 한달에 4,500원 soooo 저렴
-            <span th:if="${pub.subYn == 'Y'}"> (이미 구독 중)</span>
-        </a>
+    <li th:id="|li-${pub.pubId}|">
+        [[${pub.name}]] 님을 구독하겠어요... 한달에 4,500원 soooo 저렴
+        <span th:if="${pub.subYn == 'Y'}" th:id="|span-${pub.pubId}|" style="display: inline"> (이미 구독 중)</span>
+        <button th:if="${pub.subYn == 'N'}" th:id="|btn-${pub.pubId}|" th:onclick="subscribe([[${pub}]])" style="display: inline">구독하기</button>
     </li>
 </ul>
 
@@ -42,14 +41,17 @@
                     console.log(data)
                     alert(`축하드립니다. 이제 당신은 ${pub.name} 와 항상 함께 입ㄴ디ㅏ.`)
                     if (data.message === 'ok') {
-                        let a = document.getElementById(pub.pubId);
-                        a.onclick = null;
-                        a.removeAttribute('href');
-                        a.innerText += ' (이미 구독 중)';
+                        // let span = document.getElementById(`span-${pub.pubId}`).style.display = 'inline';
+                        document.getElementById(`btn-${pub.pubId}`).style.display = 'none';
+                        let li = document.getElementById(`li-${pub.pubId}`);
+                        li.innerText += ' (이미 구독 중)';
+                        // let span = document.getElementById('span-' + pub.pubId).style.display = 'inline';
+                        // let btn = document.getElementById('btn-' + pub.pubId).style.display = 'none';
                     }
                 })
                 .catch((error) => {
                     alert(error);
+                    console.log(error);
                 });
         }
     }
