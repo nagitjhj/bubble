@@ -5,11 +5,22 @@
 
 <mapper namespace="com.my.bubble.sub.repository.SubRepository">
 
-    <select id="findAll" resultType="com.my.bubble.sub.model.ResponsePubList">
-        SELECT id pubId
-                , name
-        FROM user
-        WHERE id in (SELECT id FROM auth WHERE auth = 'ROLE_CEL')
+    <select id="findAll" resultType="com.my.bubble.sub.model.ResponsePubList" parameterType="String">
+        SELECT u.id AS pubId
+             , u.name
+             , CASE
+                   WHEN s.pub_id IS NULL THEN 'N'
+                   ELSE 'Y'
+                END as subYn
+        FROM user u
+        LEFT JOIN(
+                     SELECT s2.pub_id
+                     FROM subscribe s2
+                     WHERE s2.user_id = #{id}
+                       AND s2.valid_yn = 'Y'
+                 ) s
+             ON u.id = s.pub_id
+        WHERE u.id IN (SELECT a.id FROM auth a WHERE a.auth = 'ROLE_CEL')
     </select>
 
     <insert id="saveSubFirst" parameterType="com.my.bubble.sub.model.Subscribe">

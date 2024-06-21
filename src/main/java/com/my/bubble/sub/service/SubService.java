@@ -13,8 +13,8 @@ import java.util.List;
 public class SubService {
     private final SubRepository subRepository;
 
-    public List<ResponsePubList> findPubList() {
-        return subRepository.findAll();
+    public List<ResponsePubList> findPubList(String id) {
+        return subRepository.findAll(id);
     }
 
     public void subFirst(String userId, String pubId) {

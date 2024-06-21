@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface SubRepository {
-    List<ResponsePubList> findAll();
+    List<ResponsePubList> findAll(String id);
     void saveSubFirst(Subscribe subscribe);
 }

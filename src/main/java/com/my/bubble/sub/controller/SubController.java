@@ -28,8 +28,8 @@ public class SubController {
     private final SubService subService;
 
     @GetMapping("/pub/list")
-    public String pubListPage(Model model) {
-        List<ResponsePubList> pubList = subService.findPubList();
+    public String pubListPage(Model model, Principal principal) {
+        List<ResponsePubList> pubList = subService.findPubList(principal.getName());
 
         model.addAttribute("pubList", pubList);
 

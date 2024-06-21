@@ -11,8 +11,9 @@
 
 <ul th:each="pub : ${pubList}">
     <li>
-        <a th:id="${pub.pubId}" href="#" th:onclick="subscribe([[${pub}]])">
+        <a th:id="${pub.pubId}" th:attr="onclick=${pub.subYn == 'N'} ? 'subscribe('+${pub}+')' : null">
             [[${pub.name}]] 님을 구독하겠어요... 한달에 4,500원 soooo 저렴
+            <span th:if="${pub.subYn == 'Y'}"> (이미 구독 중)</span>
         </a>
     </li>
 </ul>
